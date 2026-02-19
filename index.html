@@ -94,4 +94,97 @@
             { q: "Otázka 16: Jaký alkohol jsme spolu pili poprvé?", options: ["Drink", "Pivo", "Víno", "Tvrdý"], correct: 2 },
             { q: "Otázka 17: Jakou značku auta bych jednou bral?", options: ["BMW", "Mercedes", "Škoda"], correct: 1 },
             { q: "Otázka 18: Jakou potravinu bych neměl jíst?", options: ["Mléko", "Ořechy", "Olivy"], correct: 0 },
-            { q: "Otázka 19: Jakou knížku jsem čet
+            { q: "Otázka 19: Jakou knížku jsem četl naposled?", options: ["Bibli", "Střet králů", "Pýcha a předsudek"], correct: 2 },
+            { q: "Otázka 20: Moje nejoblíbenější herní série?", options: ["Age of Empire", "KCD", "GTA"], correct: 1 },
+            { q: "Otázka 21: Jaké jídlo miluji, když jsem s tebou?", options: ["Chlebík", "Rohlíčky", "Špagetky"], correct: 2 },
+            { q: "Otázka 22: Jakou přílohu moc nemusím?", options: ["Těstoviny", "Rýži", "Brambor"], correct: 2 },
+            { q: "Otázka 23: Kterou část tvého těla obdivuji?", options: ["Obličej", "Zadek", "Boky", "Ňadra", "Všechny"], correct: 4 },
+            { q: "Otázka 24: Mám obřízku?", options: ["ANO", "NE"], correct: 0 },
+            { q: "Otázka 25: Co uděláš, až se uvidíme?", options: ["Skočíš do náruče", "Upusinkuješ mě", "Umačkáš mě", "Vše výše"], correct: 3 },
+            { q: "Otázka 26: Co bych si dal k pití jako první?", options: ["Míchaný drink", "Víno", "Pivo"], correct: 0 },
+            { q: "Otázka 27: Kdo je můj nej kámoš?", options: ["Tibor", "Honza", "Adrien"], correct: 2 },
+            { q: "Otázka 28: Jakou barvu má můj Ipad?", options: ["Bílou", "Stříbrnou", "Modrou"], correct: 2 },
+            { q: "Otázka 29: Velké město v mojí top hře?", options: ["Rataje", "Kutná Hora", "Troskovice"], correct: 1 },
+            { q: "Otázka 30: Můj fav singer?", options: ["Viki", "Yzo", "Calin"], correct: 0 },
+            { q: "Otázka 31: Na co se těším, až mi uvaříš?", options: ["Špagety", "Čínu", "Cokoli <3"], correct: 2 },
+            { q: "Otázka 32: Nejoblíbenější tričko?", options: ["Bílé s pusinkami", "Policejní", "Nike"], correct: 0 },
+            { q: "Otázka 33: Máš někoho radši než mě?", options: ["Ano", "Možná", "NE"], correct: 2 },
+            { q: "Otázka 34: Co jsem ti uvařil na prvním rande?", options: ["Grog", "Kafe", "Čaj"], correct: 1 },
+            { q: "Otázka 35: Kdo je lepší radiátor?", options: ["Lucinka", "Maťo", "Oba"], correct: 2 },
+            { q: "Otázka 36: Kde jsem byl, když jsme domluvili rande?", options: ["V hospodě", "Na oslavě", "V klubu"], correct: 1 },
+            { q: "Otázka 37: Jaké kalhotky jsem ti šlohl?", options: ["Zelené", "Bílé", "Žádné"], correct: 2 },
+            { q: "Otázka 38: Jak se teď cítím?", options: ["Veselý", "Smutný a nadržený", "Veselý na 2"], correct: 1 },
+            { q: "Otázka 39: Co se stane při chybě?", options: ["Vypne se to", "Pojedeš od začátku", "Nic"], correct: 1 },
+            { q: "Otázka 40: Bolí tě ručka?", options: ["Ano", "Zvládám", "Ne, jsem šikovná!"], correct: 2 },
+            { q: "Otázka 41: Co použiješ pro potěšení?", options: ["Krém", "Tučňáčka", "TV"], correct: 1 },
+            { q: "Otázka 42: HEX kód pozadí?", options: ["#ff8c00", "Západ", "Červená"], correct: 0 },
+            { q: "Otázka 43: Čeho se bojím?", options: ["Zapomnění", "Tmy", "Samoty"], correct: 1 },
+            { q: "Otázka 44: Čeho se báli v Madagascaru?", options: ["Fossy", "Lidí", "Opice"], correct: 0 },
+            { q: "Otázka 45: Věříš si?", options: ["Ne", "NE!", "Ano"], correct: 2 },
+            { q: "Otázka 46: Jsi načatá?", options: ["Ne", "Spím", "ANOO", "Nebaví"], correct: 2 },
+            { q: "Otázka 47: Chybím ti?", options: ["Ne", "Trochu", "ANO MOOC", "Vůbec"], correct: 2 },
+            { q: "Otázka 48: Těšíš se na výlety?", options: ["Zůstanem doma", "Nejvíc", "Ano", "Vše výše"], correct: 3 },
+            { q: "Otázka 49: Víš, že nemám adresu?", options: ["Bude", "Fakt?", "Pak ti ji zašlu"], correct: 2 },
+            { q: "Otázka 50: MILUJEŠ MĚ?", options: ["Kdo ví", "Ano nejvíc", "Ne", "NE!"], correct: 1 },
+            { q: "Otázka 51: Pošleš mi fotku?", options: ["Ne", "Možná", "Už to letí"], correct: 2 }
+        ];
+
+        function startQuiz() {
+            currentStep = 0;
+            showQuestion();
+            document.getElementById('feedback').innerText = "Dokaž, že jsi má pravá princezna! 🧡";
+        }
+
+        function showQuestion() {
+            const data = quizData[currentStep];
+            document.getElementById('question').innerText = data.q;
+            let buttonsHtml = "";
+            data.options.forEach((option, index) => {
+                buttonsHtml += `<button onclick="checkAnswer(${index})" style="animation: fadeIn 0.4s ease forwards; opacity: 0; animation-delay: ${index * 0.1}s">${option}</button>`;
+            });
+            document.getElementById('buttons').innerHTML = buttonsHtml;
+        }
+
+        function checkAnswer(selectedIndex) {
+            if (selectedIndex === quizData[currentStep].correct) {
+                currentStep++;
+                document.getElementById('feedback').innerText = "Správně! Pokračujeme... ✨";
+                if (currentStep < quizData.length) {
+                    setTimeout(showQuestion, 600);
+                } else {
+                    finishQuiz();
+                }
+            } else {
+                currentStep = 0; 
+                const fb = document.getElementById('feedback');
+                fb.style.color = "#ff0000";
+                fb.innerText = "💔 CHYBA! Princezničko, tak zase od znova.";
+                setTimeout(() => { 
+                    fb.style.color = "#e65100"; 
+                    showQuestion();
+                }, 1500);
+            }
+        }
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
+            document.body.appendChild(heart);
+            setTimeout(() => { heart.remove(); }, 5000);
+        }
+
+        function finishQuiz() {
+            document.getElementById('question').innerText = "Dokázala jsi to🥰! Jsi moje princezna, královna, všechno na světě👑! Miluji tě takovou, jaká jsi.. Nejúžasnější a já tě vyhrál👑 a ty zase mě👑, jsem jen tvůj🧸💖";
+            document.getElementById('buttons').innerHTML = "<div style='font-size: 60px;'>👸🧡🥂</div>";
+            document.getElementById('feedback').innerText = "Jsi nejlepší!";
+            
+            // Spuštění srdíčkového deště
+            setInterval(createHeart, 300);
+        }
+    </script>
+</body>
+</html>
