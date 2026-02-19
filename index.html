@@ -1,70 +1,80 @@
-HTML
 <!DOCTYPE html>
 <html lang="cs">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Princeznovský kvíz - Sunset Edition</title>
+    <title>Kvíz pro mou princeznu</title>
     <style>
-        /* TADY JE TA HLAVNÍ ZMĚNA - POZADÍ JAKO ZÁPAD SLUNCE */
+        /* POŘÁDNĚ ORANŽOVÝ ZÁPAD SLUNCE */
         body { 
             font-family: 'Arial', sans-serif; 
-            /* Barevný přechod z teplé oranžové do růžovo-fialové */
-            background: linear-gradient(to bottom right, #ff512f, #dd2476); 
+            background: linear-gradient(180deg, #ffcc33 0%, #ffb347 30%, #ff8c00 60%, #ff4500 100%); 
             text-align: center; 
             display: flex; 
             justify-content: center; 
             align-items: center; 
             min-height: 100vh; 
             margin: 0; 
+            overflow: hidden;
         }
-        .card { 
-            background: rgba(255, 255, 255, 0.95); /* Mírně průhledná bílá, aby prosvítalo pozadí */
+
+        .card {
+            background: rgba(255, 255, 255, 0.92);
             padding: 40px; 
             border-radius: 30px; 
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2); 
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3); 
             max-width: 450px; 
-            width: 90%; 
+            width: 85%; 
+            position: relative;
+            z-index: 10;
         }
-        /* Nadpis v barvě zapadajícího slunce */
+
         h1 { 
-            color: #d84315; /* Hluboká oranžovo-červená */
+            color: #e65100; 
             font-size: 28px;
             margin-bottom: 10px;
         }
+
         p { 
             font-size: 1.2rem; 
-            color: #555; 
+            color: #444; 
             min-height: 60px; 
             line-height: 1.4;
         }
+
         .btn-container { display: flex; flex-direction: column; gap: 12px; margin-top: 25px; }
-        /* Tlačítka v barvě sunsetu */
+
+        /* Tlačítka v barvách horkého slunce */
         button { 
-            background: linear-gradient(to right, #ff6a00, #ee0979); /* I tlačítka mají malý gradient */
+            background: linear-gradient(to right, #ff8c00, #ff4500);
             color: white; 
             border: none; 
             padding: 15px; 
-            border-radius: 25px; /* Více kulatá tlačítka */
+            border-radius: 25px; 
             cursor: pointer; 
             font-size: 1.1rem; 
             font-weight: bold;
             transition: 0.3s; 
-            box-shadow: 0 5px 15px rgba(238, 9, 121, 0.3);
+            box-shadow: 0 5px 15px rgba(255, 69, 0, 0.4);
         }
+
         button:hover { 
-            transform: translateY(-3px) scale(1.02); /* Efekt při najetí myší */
-            box-shadow: 0 8px 20px rgba(238, 9, 121, 0.5);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 69, 0, 0.6);
         }
-        .feedback { margin-top: 20px; font-weight: bold; color: #d84315; min-height: 25px; font-size: 1rem; }
+
+        .feedback { margin-top: 20px; font-weight: bold; color: #e65100; min-height: 25px; }
+
+        /* Animace pro čistý přechod */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
     <div class="card">
-        <h1>Kvíz při západu slunce 🌅</h1>
-        <p id="question">Jedna chyba a slunce zapadne... a ty začínáš odznova!</p>
+        <h1>Kvíz pro princeznu 🌅</h1>
+        <p id="question">Jedna chyba a jsi zase na začátku... Jsi připravená?</p>
         <div id="buttons" class="btn-container">
-            <button onclick="startQuiz()">Jsem připravena riskovat!</button>
+            <button onclick="startQuiz()">Jdeme na to! ✨</button>
         </div>
         <div id="feedback" class="feedback"></div>
     </div>
@@ -72,39 +82,274 @@ HTML
     <script>
         let currentStep = 0;
 
-        // --- ZDE SI UPRAV SVÉ OTÁZKY ---
+        // --- TADY SI DOPLŇ SVÉ OTÁZKY ---
         const quizData = [
             {
-                q: "Při jakém filmu jsme se poprvé drželi za ruku?",
-                options: ["Titanic", "Lví král", "Rychle a zběsile"],
-                correct: 1 // Lví král je správně (počítáno od 0)
-            },
-            {
-                q: "Jakou příchuť zmrzliny ti vždycky kradem?",
-                options: ["Čokoládovou", "Jahodovou", "Pistáciovou"],
+                q: "Otázka 1: Co mám nejradši na tvém úsměvu?",
+                options: ["Všechno", "Dolíčky", "Tu jiskru v očích", "Tu radost"],
                 correct: 0
             },
             {
-                q: "Co ti nejčastěji říkám před spaním?",
-                options: ["Dobrou noc", "Miluju tě, princezno", "Nezapomeň nastavit budík"],
+                q: "Otázka 2: Jakou barvu má moje auto?",
+                options: ["Modrou", "Červenou", "Stříbrnou"],
+                correct: 2
+            },
+            {
+                q: "Otázka 3: Jaké povolání jsem chtěl dělat?",
+                options: ["Učitel", "Hasič", "Zedník", "Policista"],
+                correct: 3
+            },
+            {
+                q: "Otázka 4: Jaké vlasy jsem měl jako malý?",
+                options: ["Černé", "Hnědé", "Blond", "Rezavé"],
+                correct: 2
+            },
+            {
+                q: "Otázka 5: Kolik měřím ",
+                options: ["182", "190", "185"],
+                correct: 0
+            },
+            {
+                q: "Otázka 6: Jaké značky mám Auto?",
+                options: ["Renault", "Opel", "Citroen", "Škoda"],
                 correct: 1
+            },
+            {
+                q: "Otázka 7: Jsem tvůj?",
+                options: ["Kluk", "Muž", "Sluha", "Mistr škrábač zadku", "Miláček", "Vše výše uvedené"],
+                correct: 5
+            },
+            {
+                q: "Otázka 8: Jakou polohu mám nejradši?",
+                options: ["Nahoře na tobě", "Pod tebou", "Všechny, kde jsem v tobě"],
+                correct: 2
+            },
+            {
+                q: "Otázka 9: Kolik má/měl můj otec sourozenců?",
+                options: ["0", "1", "2", "3"],
+                correct: 1
+            },
+            {
+                q: "Otázka 10: Kolik má/měla moje matka sourozenců?",
+                options: ["0", "1", "2", "3"],
+                correct: 2
+            },
+            {
+                q: "Otázka 11: Je pravda,že: Pokud se neoženíme a nebudeme mít děti vymře rodová linie Šebestů?",
+                options: ["Ano", "Ne"],
+                correct: 0
+            },
+            {
+                q: "Otázka 12: Kdy mám narozeniny??",
+                options: ["12.5", "21.5", "25.5"],
+                correct: 1
+            },
+            {
+                q: "Otázka 13:Kdo by měl častěji řídit?",
+                options: [ "Maťo", "Lucinka"],
+                correct: 1
+            },
+            {
+                q: "Otázka 14: Kolem čeho se mi točí celý svět??",
+                options: ["Pozice ve společnosti", "Peněz", "Lucky"],
+                correct: 2
+            },
+            {
+                q: "Otázka 15: Začneš se více fotit, ať máme na co vzpomínat ve stáří?",
+                options: ["Ne", "Ne", "Ne", "Ano"],
+                correct: 3
+            },
+            {
+                q: "Otázka 16: Jaký alkohol jsme spolu pili poprve?",
+                options: ["Drink", "Pivo", "Víno", "Tvrdý alkohol"],
+                correct: 2
+            },
+            {
+                q: "Otázka 17: Jakou značku z těchto profláklých bych jednou bral, kdybych měl na výběr?",
+                options: ["BMW", "Mercedes", "Škoda" ],
+                correct: 1
+            },
+            {
+                q: "Otázka 18: Jakou potravinu bych neměl konzumovat?",
+                options: ["Mléko", "Ořechy", "Olivy"],
+                correct: 0
+            },
+            {
+                q: "Otázka 19: Jakou knížku jsem četl jako poslední??",
+                options: ["Bibli", "Střet králů", "Pýcha a předsudek"],
+                correct: 2
+            },
+            {
+                q: "Otázka 20: Jak se jmenuje moje nejoblíbenější herní serie?",
+                options: ["Age of Empire", "Kingdom come Deliverance", "Grand Theft Auto"],
+                correct: 2
+            },
+            {
+                q: "Otázka 21: Jaké jídlo miluji, když jsem s tebou?",
+                options: ["Chlebík", "Rohlíčky", "Špagetky"],
+                correct: 2
+            },
+            {
+                q: "Otázka 22: Jakou přílohu moc nemusím?",
+                options: ["Těstoviny", "Rýži", "Brambor"],
+                correct: 2
+            },
+            {
+                q: "Otázka 23: Kterou část tvého těla nejvíce obdivuji?",
+                options: ["Obličej", "Zadek", "Boky", "Ňadra", "Všechny"],
+                correct: 4
+            },
+            {
+                q: "Otázka 24: Mám asi obřízku?",
+                options: ["ANO", "NE"],
+                correct: 0
+            },
+            {
+                q: "Otázka 25: Co uděláš, až se prvně uvidíme?",
+                options: ["Skočíš mi do náruče, i kdyby mi mělo všechno spadnout na zem", "Upusinkuješ mě", "Umačkáš mě", "Vše výše uvedené"],
+                correct: 3
+             },
+            {
+                q: "Otázka 26: Co bych si dal jako první, kdybych měl na výběr?",
+                options: ["Míchaný drink", "Víno", "Pivo" ],
+                correct: 0
+                 },
+            {
+                q: "Otázka 27: Který je jakože muj nej kámoš ?",
+                options: ["Tibor", "Honza", "Adrien" ],
+                correct: 2
+                 },
+            {
+                q: "Otázka 28: Jakou barvu má můj Ipad?",
+                options: ["Bílou", "Stříbrnou", "Modrou" ],
+                correct: 2
+                 },
+            {
+                q: "Otázka 29: Jak se jmenuje velké město, které je v moji top hře ?",
+                options: ["Rataje", "Kutná Hora", "Troskovice" ],
+                correct: 1
+                 },
+            {
+                q: "Otázka 30: Můj fav pop/rap singer?",
+                options: ["Viki", "Yzo", "Calin" ],
+                correct: 0
+                 },
+            {
+                q: "Otázka 31: Na co se těším, až mi uvaříš?",
+                options: ["Špagety", "Čínskou polívku", "Cokoli <3 " ],
+                correct: 2
+                 },
+            {
+                q: "Otázka 32: Jaké je moje nejoblíbenější tričko?",
+                options: ["Bílé s pusinkami", "Policejní", "Nike bíle" ],
+                correct: 0
+                 },
+            {
+                q: "Otázka 33: Máš nějakého kluka radši než mě?",
+                options: ["Ano", "Možná", "NE" ],
+                correct: 2
+                 },
+            {
+                q: "Otázka 34: Jakou tekutinu jsem ti uvařil na našem prvním randíčku?",
+                options: ["Grog", "Kafe", "Čaj" ],
+                correct: 1
+                 },
+            {
+                q: "Otázka 35:Kdo z nás dvou je lepší radiátor?",
+                options: ["Lucinka", "Maťo", "Oba záleží komu je větší zima" ],
+                correct: 2
+                 },
+            {
+                q: "Otázka 36: Na jakém eventu jsem byl, když jsme se domluvili na naš první randíčko?",
+                options: ["V hospodě", "Na oslavě", "V klubíku" ],
+                correct: 1
+                 },
+            {
+                q: "Otázka 37: Jaké kalhotky jsem ti šlohl, když jsem byl u tebe naposled?",
+                options: ["Zelené", "Bílé", "Kytičkové" ],
+                correct: [0,1,2]
+                 },
+            {
+                q: "Otázka 38: ?",
+                options: ["BMW", "Mercedes", "Škoda" ],
+                correct: 1
+                 },
+            {
+                q: "Otázka 39: ?",
+                options: ["BMW", "Mercedes", "Škoda" ],
+                correct: 1
+                 },
+            {
+                q: "Otázka 40: ?",
+                options: ["BMW", "Mercedes", "Škoda" ],
+                correct: 1
+                 },
+            {
+                q: "Otázka 41: ?",
+                options: ["BMW", "Mercedes", "Škoda" ],
+                correct: 1
+                 },
+            {
+                q: "Otázka 42: ?",
+                options: ["BMW", "Mercedes", "Škoda" ],
+                correct: 1
+                 },
+            {
+                q: "Otázka 43:?",
+                options: ["BMW", "Mercedes", "Škoda" ],
+                correct: 1
+                 },
+            {
+                q: "Otázka 44: ?",
+                options: ["BMW", "Mercedes", "Škoda" ],
+                correct: 1
+                 },
+            {
+                q: "Otázka 45: ?",
+                options: ["BMW", "Mercedes", "Škoda" ],
+                correct: 1
+                 },
+            {
+                q: "Otázka 46: ?",
+                options: ["BMW", "Mercedes", "Škoda" ],
+                correct: 1
+                 },
+            {
+                q: "Otázka 47: ?",
+                options: ["BMW", "Mercedes", "Škoda" ],
+                correct: 1
+                 },
+            {
+                q: "Otázka 48: ?",
+                options: ["BMW", "Mercedes", "Škoda" ],
+                correct: 1
+                 },
+            {
+                q: "Otázka 49: ?",
+                options: ["BMW", "Mercedes", "Škoda" ],
+                correct: 1
+                 },
+            {
+                q: "Otázka 50: ?",
+                options: ["BMW", "Mercedes", "Škoda" ],
+                correct: 1
+            
             }
+          
         ];
-        // --------------------------------
 
         function startQuiz() {
             currentStep = 0;
             showQuestion();
-            document.getElementById('feedback').innerText = "Hodně štěstí, lásko! 🧡";
+            document.getElementById('feedback').innerText = "Dokaž, že jsi má pravá princezna! 🧡";
         }
 
         function showQuestion() {
             const data = quizData[currentStep];
-            document.getElementById('question').innerText = `Otázka ${currentStep + 1}: ${data.q}`;
+            document.getElementById('question').innerText = data.q;
             
             let buttonsHtml = "";
             data.options.forEach((option, index) => {
-                // Přidáme malou animaci (fade-in) pro tlačítka
                 buttonsHtml += `<button onclick="checkAnswer(${index})" style="animation: fadeIn 0.5s ease forwards; opacity: 0; animation-delay: ${index * 0.1}s">${option}</button>`;
             });
             document.getElementById('buttons').innerHTML = buttonsHtml;
@@ -115,33 +360,27 @@ HTML
             
             if (selectedIndex === correctIndex) {
                 currentStep++;
-                document.getElementById('feedback').innerText = "Správně! Jsi úžasná! ✨";
+                document.getElementById('feedback').innerText = "Správně! Pokračujeme... ✨";
                 if (currentStep < quizData.length) {
-                    setTimeout(showQuestion, 500); // Malá pauza před další otázkou
+                    setTimeout(showQuestion, 600);
                 } else {
                     finishQuiz();
                 }
             } else {
-                // --- HARDCORE RESET ---
                 currentStep = 0; 
                 showQuestion();
-                // Změníme barvu feedbacku na červenou při chybě
-                const feedbackEl = document.getElementById('feedback');
-                feedbackEl.style.color = "#ff0000";
-                feedbackEl.innerText = "💔 Špatně! Slunce zapadlo. Musíš začít znovu od 1. otázky!";
-                // Po chvilce vrátíme barvu zpět na oranžovou
-                setTimeout(() => { feedbackEl.style.color = "#d84315"; }, 3000);
+                const fb = document.getElementById('feedback');
+                fb.style.color = "#ff0000";
+                fb.innerText = "💔 CHYBA! Sluníčko, tak zase od znova.";
+                setTimeout(() => { fb.style.color = "#e65100"; }, 2000);
             }
         }
 
         function finishQuiz() {
-            document.getElementById('question').innerText = "Dokázala jsi to! Prošla jsi celým kvízem bez chyby. Jsi moje zářící sluníčko! ☀️💖";
-            document.getElementById('buttons').innerHTML = "<div style='font-size: 60px;'>💏🌅🥂</div>";
+            document.getElementById('question').innerText = "Dokázala jsi to! Jsi moje zářící sluníčko! ☀️💖";
+            document.getElementById('buttons').innerHTML = "<div style='font-size: 60px;'>👸🧡🥂</div>";
             document.getElementById('feedback').innerText = "Jsi nejlepší!";
         }
     </script>
-    <style>
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-    </style>
 </body>
 </html>
