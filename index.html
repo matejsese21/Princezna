@@ -6,43 +6,82 @@
     <title>Princeznovský kvíz</title>
     <style>
         body { font-family: 'Arial', sans-serif; background: #ffe6f2; text-align: center; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .card { background: white; padding: 40px; border-radius: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); max-width: 400px; width: 85%; }
-        h1 { color: #d63384; margin-top: 0; }
-        p { font-size: 1.2rem; color: #444; line-height: 1.5; }
+        .card { background: white; padding: 40px; border-radius: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); max-width: 450px; width: 90%; }
+        h1 { color: #d63384; font-size: 26px; }
+        p { font-size: 1.1rem; color: #444; min-height: 50px; }
         .btn-container { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
-        button { background: #d63384; color: white; border: none; padding: 15px; border-radius: 15px; cursor: pointer; font-size: 1.1rem; font-weight: bold; transition: 0.3s; }
-        button:hover { background: #b02a6a; transform: scale(1.03); }
+        button { background: #d63384; color: white; border: none; padding: 12px; border-radius: 12px; cursor: pointer; font-size: 1rem; transition: 0.3s; }
+        button:hover { background: #b02a6a; }
+        .feedback { margin-top: 15px; font-weight: bold; color: #ff4d4d; height: 20px; }
     </style>
 </head>
 <body>
     <div class="card">
-        <h1>Princeznovský kvíz ❤️</h1>
-        <p id="question">Jsi připravena na první otázku, princezno?</p>
+        <h1>Kvíz pro princeznu 👑</h1>
+        <p id="question">Jsi připravena dokázat, že mě znáš?</p>
         <div id="buttons" class="btn-container">
-            <button onclick="nextQuestion()">Ano, začít!</button>
+            <button onclick="startQuiz()">Ano, jdeme na to!</button>
         </div>
+        <div id="feedback" class="feedback"></div>
     </div>
 
     <script>
-        let step = 0;
-        const questions = [
-            "Máš ráda růžovou barvu a krásné věci?",
-            "Chtěla bys prozkoumat ostrovní život v Pollençe se mnou?",
-            "Zasloužíš si být tou nejšťastnější princeznou?"
+        let currentStep = 0;
+
+        // TADY SI UPRAVUJ OTÁZKY, MOŽNOSTI A SPRÁVNOU ODPOVĚĎ
+        const quizData = [
+            {
+                q: "Jaké auto parkuje v mé garáži?",
+                options: ["Škoda Fabia", "Opel Corsa C", "Volkswagen Golf"],
+                correct: 1 // Počítá se od nuly, takže 1 je Opel Corsa C
+            },
+            {
+                q: "Kam spolu poletíme za pejsky?",
+                options: ["Na Mallorku do Pollençy", "Na Kanáry", "Na Bali"],
+                correct: 0 // 0 je první možnost
+            },
+            {
+                q: "Kdo je tvoje největší láska?",
+                options: ["Můj pes", "Čokoláda", "Přece já!"],
+                correct: 2
+            }
         ];
 
-        function nextQuestion() {
-            if (step < questions.length) {
-                document.getElementById('question').innerText = questions[step];
-                document.getElementById('buttons').innerHTML = `
-                    <button onclick="nextQuestion()">Ano!</button>
-                    <button onclick="nextQuestion()">Naprosto!</button>
-                `;
-                step++;
+        function startQuiz() {
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const data = quizData[currentStep];
+            document.getElementById('question').innerText = data.q;
+            document.getElementById('feedback').innerText = "";
+            
+            let buttonsHtml = "";
+            data.options.forEach((option, index) => {
+                buttonsHtml += `<button onclick="checkAnswer(${index})">${option}</button>`;
+            });
+            document.getElementById('buttons').innerHTML = buttonsHtml;
+        }
+
+        function checkAnswer(selectedIndex) {
+            const correctIndex = quizData[currentStep].correct;
+            
+            if (selectedIndex === correctIndex) {
+                currentStep++;
+                if (currentStep < quizData.length) {
+                    showQuestion();
+                } else {
+                    finishQuiz();
+                }
             } else {
-                document.getElementById('question').innerText = "Gratuluji! Jsi ta nejúžasnější princezna pod sluncem! 👑✨💖";
-                document.getElementById('buttons').innerHTML = "<div style='font-size: 40px;'>👸💕🐶</div>";
+                document.getElementById('feedback').innerText = "Špatně, zkus to znovu, lásko! ❤️";
             }
+        }
+
+        function finishQuiz() {
+            document.getElementById('question').innerText = "Gratuluji! Znáš mě dokonale a jsi moje jediná princezna! 💖";
+            document.getElementById('buttons').innerHTML = "<div style='font-size: 50px;'>👑✨🌹</div>";
+            document.getElementById('feedback').innerText = "";
         }
     </script>
 </body>
